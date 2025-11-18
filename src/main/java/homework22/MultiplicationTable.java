@@ -1,84 +1,107 @@
 package main.java.homework22;
+
 import java.util.Scanner;
 
-
 public class MultiplicationTable {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            //Ввод с консоли диапазона значений и шага
+            System.out.print("Введите первое число: ");
+            int first = scanner.nextInt();
+            System.out.print("Введите второе число: ");
+            int second = scanner.nextInt();
+            System.out.print("Введите шаг: ");
+            int step = scanner.nextInt();
+
+            //Проверка корректности введенных с клавиатуры данных
+            if (first > second) {
+                System.out.print("\nОшибка корректности данных: первое число не должно быть больше второго\n\n");
+                //error = 1;
+                continue;
+            }
+            if (step <= 0) {
+                System.out.print("\nОшибка корректности данных: шаг должен быть положительным\n\n");
+                //error = 1;
+                continue;
+            }
+            System.out.println();
+
+            printTable(first, second, step);
+
+            break;
+        } while (true);
+    }
+
     //Функция для вычисления ширины клетки таблицы
     public static int getCellWidth(int number) {
         String data = String.valueOf(number);
+
         return data.length();
     }
 
-    //Функция для печати таблицы
-    public static void printTable(int FirstNimber, int SecondNumber, int StepNumber) {
+    //Определение длины массива
+    public static int arrayCreating(int first, int second, int step) {
 
-        int MaxNumber = Math.max(Math.abs(FirstNimber), Math.abs(SecondNumber)); //поиск максимального числа по модулю
-        int MaxNumberSquare = -1 * MaxNumber * MaxNumber; //подсчет самого большого возможного результата умножения (с возможным минусом)
-        int lengthCell = getCellWidth(MaxNumberSquare) + 2; //вычисленная ширина клетки + два пробела, чтоб столбики таблицы не сливались
+        int arrayLength = (second - first) / step + 1;
+        int lastNumber = first + (arrayLength - 1) * step;
 
-        int LengthMass = 0;
-
-        //Подсчет длины массива р
-        for (int i = FirstNimber; i <= SecondNumber; i = i + StepNumber) {
-            LengthMass++;
-            if ((i+StepNumber > SecondNumber) && (i != SecondNumber)) { //SecondNumber всегда должно присутствовать в таблице
-                LengthMass++;
-            }
-        }
-        int MassNumbers[] = new int[LengthMass];
-
-        //Вывод шапки таблицы, запись чисел в массив
-        System.out.printf("%" + lengthCell + "s", " "); //Пропуск ячейки в начале таблицы
-        for (int i = FirstNimber, j = 0; i <= SecondNumber; i = i + StepNumber, j++) {
-            System.out.printf("%" + lengthCell + "d", i); //вывод ряда чисел от FirstNimber до SecondNumber с шагом StepNumber
-            MassNumbers[j] = i;
-            if ((i+StepNumber > SecondNumber) && (i != SecondNumber)) { //Чтоб SecondNumber присутствовало в таблице
-                System.out.printf("%" + lengthCell + "d", SecondNumber);
-                MassNumbers[j+1] = SecondNumber;
-            }
-        }
-        System.out.println("");
-
-        //Вывод строк таблицы с помощью созданного массива чисел
-        for (int i = 0; i < LengthMass; i++) {
-            System.out.printf("%" + lengthCell + "d", MassNumbers[i]);
-            for (int j = 0; j < LengthMass; j++){
-                System.out.printf("%" + lengthCell + "d", MassNumbers[i]*MassNumbers[j]);
-            }
-            System.out.println("");
+        if (lastNumber == second) {
+            return arrayLength;
+        } else {
+            return arrayLength + 1;
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int Error;
+    //Заполнение массива
+    public static int[] arrayFilling(int first, int second, int step, int arrayLength) {
+        int[] array = new int[arrayLength];
 
-        do {
-            Error = 0; //Помогает поймать ошибку: если ошибка есть, Error = 1 => повторный ввод чисел; если нет => ввод один раз
+        for (int i = first, j = 0; i <= second; i = i + step, j++) {
+            array[j] = i;
+        }
+        if (array[arrayLength - 1] != second) {
+            array[arrayLength - 1] = second;
+        }
+        return array;
+    }
 
-            //Ввод с консоли диапазона значений и шага
-            System.out.print("Введите первое число: ");
-            int FirstNimber = scanner.nextInt();
-            System.out.print("Введите второе число: ");
-            int SecondNumber = scanner.nextInt();
-            System.out.print("Введите шаг: ");
-            int StepNumber = scanner.nextInt();
+    //Вывод шапки таблицы, запись чисел в массив
+    public static void firstRowPrint(int cellLength, int arrayLength, int[] array) {
+        System.out.printf("%" + cellLength + "s", " ");
 
-            //Проверка корректности введенных с клавиатуры данных
-            if (FirstNimber > SecondNumber) {
-                System.out.print("\nОшибка корректности данных: первое число не должно быть больше второго");
-                Error = 1;
+        for (int i = 0; i < arrayLength; i++) {
+            System.out.printf("%" + cellLength + "d", array[i]);
+        }
+
+        System.out.println();
+    }
+
+    //Вывод строк таблицы с помощью созданного массива чисел
+    public static void otherRowPrint(int cellLength, int arrayLength, int[] array) {
+        for (int i = 0; i < arrayLength; i++) {
+            System.out.printf("%" + cellLength + "d", array[i]);
+
+            for (int j = 0; j < arrayLength; j++) {
+                System.out.printf("%" + cellLength + "d", array[i] * array[j]);
             }
-            if (StepNumber <= 0) {
-                System.out.print("\nОшибка корректности данных: шаг должен быть положительным");
-                Error = 1;
-            }
-            System.out.println("");
 
-            //Вызов функции печати таблицы, если нет ошибок
-            if (Error == 0) {
-                printTable(FirstNimber, SecondNumber, StepNumber);
-            }
-        } while (Error == 1);
+            System.out.println();
+        }
+    }
+
+    //Функция для печати таблицы
+    public static void printTable(int first, int second, int step) {
+
+        int numberMax = Math.max(Math.abs(first), Math.abs(second)); //поиск максимального числа по модулю
+        int maxNumberSquare = -1 * numberMax * numberMax; //подсчет самого большого возможного результата умножения (с возможным минусом)
+        int cellLength = getCellWidth(maxNumberSquare) + 2; //вычисленная ширина клетки + два пробела, чтоб столбики таблицы не сливались
+
+        int arrayLength = arrayCreating(first, second, step); //Определение длины массива
+        int[] array = arrayFilling(first, second, step, arrayLength); //Заполнение массива
+
+        firstRowPrint(cellLength, arrayLength, array); //Вывод шапки таблицы, запись чисел в массив
+        otherRowPrint(cellLength, arrayLength, array); //Вывод строк таблицы с помощью созданного массива чисел
     }
 }
