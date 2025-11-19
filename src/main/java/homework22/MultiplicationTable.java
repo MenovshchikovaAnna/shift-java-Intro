@@ -18,12 +18,10 @@ public class MultiplicationTable {
             //Проверка корректности введенных с клавиатуры данных
             if (first > second) {
                 System.out.print("\nОшибка корректности данных: первое число не должно быть больше второго\n\n");
-                //error = 1;
                 continue;
             }
             if (step <= 0) {
                 System.out.print("\nОшибка корректности данных: шаг должен быть положительным\n\n");
-                //error = 1;
                 continue;
             }
             System.out.println();
@@ -42,7 +40,7 @@ public class MultiplicationTable {
     }
 
     //Определение длины массива
-    public static int arrayCreating(int first, int second, int step) {
+    public static int getArrayLength(int first, int second, int step) {
 
         int arrayLength = (second - first) / step + 1;
         int lastNumber = first + (arrayLength - 1) * step;
@@ -55,7 +53,7 @@ public class MultiplicationTable {
     }
 
     //Заполнение массива
-    public static int[] arrayFilling(int first, int second, int step, int arrayLength) {
+    public static int[] getMultipliersArray(int first, int second, int step, int arrayLength) {
         int[] array = new int[arrayLength];
 
         for (int i = first, j = 0; i <= second; i = i + step, j++) {
@@ -68,10 +66,10 @@ public class MultiplicationTable {
     }
 
     //Вывод шапки таблицы, запись чисел в массив
-    public static void firstRowPrint(int cellLength, int arrayLength, int[] array) {
+    public static void firstRowPrint(int cellLength, int[] array) {
         System.out.printf("%" + cellLength + "s", " ");
 
-        for (int i = 0; i < arrayLength; i++) {
+        for (int i = 0; i < array.length; i++) {
             System.out.printf("%" + cellLength + "d", array[i]);
         }
 
@@ -79,14 +77,12 @@ public class MultiplicationTable {
     }
 
     //Вывод строк таблицы с помощью созданного массива чисел
-    public static void otherRowPrint(int cellLength, int arrayLength, int[] array) {
-        for (int i = 0; i < arrayLength; i++) {
+    public static void otherRowPrint(int cellLength, int[] array) {
+        for (int i = 0; i < array.length; i++) {
             System.out.printf("%" + cellLength + "d", array[i]);
-
-            for (int j = 0; j < arrayLength; j++) {
+            for (int j = 0; j < array.length; j++) {
                 System.out.printf("%" + cellLength + "d", array[i] * array[j]);
             }
-
             System.out.println();
         }
     }
@@ -98,10 +94,10 @@ public class MultiplicationTable {
         int maxNumberSquare = -1 * numberMax * numberMax; //подсчет самого большого возможного результата умножения (с возможным минусом)
         int cellLength = getCellWidth(maxNumberSquare) + 2; //вычисленная ширина клетки + два пробела, чтоб столбики таблицы не сливались
 
-        int arrayLength = arrayCreating(first, second, step); //Определение длины массива
-        int[] array = arrayFilling(first, second, step, arrayLength); //Заполнение массива
+        int arrayLength = getArrayLength(first, second, step); //Определение длины массива
+        int[] array = getMultipliersArray(first, second, step, arrayLength); //Заполнение массива
 
-        firstRowPrint(cellLength, arrayLength, array); //Вывод шапки таблицы, запись чисел в массив
-        otherRowPrint(cellLength, arrayLength, array); //Вывод строк таблицы с помощью созданного массива чисел
+        firstRowPrint(cellLength, array); //Вывод шапки таблицы, запись чисел в массив
+        otherRowPrint(cellLength, array); //Вывод строк таблицы с помощью созданного массива чисел
     }
 }
