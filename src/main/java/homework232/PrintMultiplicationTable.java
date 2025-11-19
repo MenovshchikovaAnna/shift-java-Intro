@@ -1,5 +1,7 @@
 package main.java.homework232;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class PrintMultiplicationTable {
@@ -26,7 +28,7 @@ public class PrintMultiplicationTable {
             }
             System.out.println();
 
-            printTable(first, second, step);
+            tableRecordToFile(first, second, step); //Функция для записи таблицы в файл
 
             break;
         } while (true);
@@ -35,13 +37,11 @@ public class PrintMultiplicationTable {
     //Функция для вычисления ширины клетки таблицы
     public static int getCellWidth(int number) {
         String data = String.valueOf(number);
-
         return data.length();
     }
 
-    //Определение длины массива
-    public static int getArrayLength(int first, int second, int step) {
-
+    //Определение длины массива множителей
+    public static int getArrayMultipliersLength(int first, int second, int step) {
         int arrayLength = (second - first) / step + 1;
         int lastNumber = first + (arrayLength - 1) * step;
 
@@ -52,7 +52,7 @@ public class PrintMultiplicationTable {
         }
     }
 
-    //Заполнение массива
+    //Заполнение массива множителей
     public static int[] getMultipliersArray(int first, int second, int step, int arrayLength) {
         int[] array = new int[arrayLength];
 
@@ -65,39 +65,46 @@ public class PrintMultiplicationTable {
         return array;
     }
 
-    //Вывод шапки таблицы, запись чисел в массив
-    public static void firstRowPrint(int cellLength, int[] array) {
-        System.out.printf("%" + cellLength + "s", " ");
+    //Запись шапки таблицы в файл
+    public static void firstRowRecordToFile(int cellLength, int[] array, PrintWriter printWriter) {
+        printWriter.printf("%" + cellLength + "s", " ");
 
         for (int i = 0; i < array.length; i++) {
-            System.out.printf("%" + cellLength + "d", array[i]);
+            printWriter.printf("%" + cellLength + "d", array[i]);
         }
-
-        System.out.println();
+        printWriter.printf("\n");
     }
 
-    //Вывод строк таблицы с помощью созданного массива чисел
-    public static void otherRowPrint(int cellLength, int[] array) {
+    //Запись строк таблицы в файл
+    public static void otherRowRecordToFile(int cellLength, int[] array, PrintWriter printWriter) {
         for (int i = 0; i < array.length; i++) {
-            System.out.printf("%" + cellLength + "d", array[i]);
+            printWriter.printf("%" + cellLength + "d", array[i]);
             for (int j = 0; j < array.length; j++) {
-                System.out.printf("%" + cellLength + "d", array[i] * array[j]);
+                printWriter.printf("%" + cellLength + "d", array[i] * array[j]);
             }
-            System.out.println();
+            printWriter.printf("\n");
         }
     }
 
-    //Функция для печати таблицы
-    public static void printTable(int first, int second, int step) {
+    //Функция для записи таблицы в файл
+    public static void tableRecordToFile(int first, int second, int step) {
+        try {
+            PrintWriter printWriter = new PrintWriter("MultiplicationTable.txt");
 
-        int numberMax = Math.max(Math.abs(first), Math.abs(second)); //поиск максимального числа по модулю
-        int maxNumberSquare = -1 * numberMax * numberMax; //подсчет самого большого возможного результата умножения (с возможным минусом)
-        int cellLength = getCellWidth(maxNumberSquare) + 2; //вычисленная ширина клетки + два пробела, чтоб столбики таблицы не сливались
+            int numberMax = Math.max(Math.abs(first), Math.abs(second)); //поиск максимального числа по модулю
+            int maxNumberSquare = -1 * numberMax * numberMax; //подсчет самого большого возможного результата умножения (с возможным минусом)
+            int cellLength = getCellWidth(maxNumberSquare) + 2; //вычисленная ширина клетки + два пробела, чтоб столбики таблицы не сливались
 
-        int arrayLength = getArrayLength(first, second, step); //Определение длины массива
-        int[] array = getMultipliersArray(first, second, step, arrayLength); //Заполнение массива
+            int arrayMultipliersLength = getArrayMultipliersLength(first, second, step); //Определение длины массива множителей
+            int[] arrayMultipliers = getMultipliersArray(first, second, step, arrayMultipliersLength); //Заполнение массива множителей
 
-        firstRowPrint(cellLength, array); //Вывод шапки таблицы, запись чисел в массив
-        otherRowPrint(cellLength, array); //Вывод строк таблицы с помощью созданного массива чисел
+            firstRowRecordToFile(cellLength, arrayMultipliers, printWriter); //Запись шапки таблицы в файл
+            otherRowRecordToFile(cellLength, arrayMultipliers, printWriter); //Запись строк таблицы в файл
+
+            printWriter.close();
+            System.out.println("Таблица умножения успешно записана в файл MultiplicationTable.txt");
+        } catch (IOException messageErrorCreateFile) {
+            System.out.print("\nОшибка при записи в файл: " + messageErrorCreateFile.getMessage() + "\n\n");
+        }
     }
 }
