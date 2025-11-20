@@ -14,7 +14,3 @@
 <19.11.2025>
 Внесены корректировки в файл WorkingWithStrings.java
 Внесены корректировки в файл PrintMultiplicationTable.java
-
-<20.11.2025>
-Внесены корректировки в файл WorkingWithStrings.java
-Внесены корректировки в файл PrintMultiplicationTable.java
