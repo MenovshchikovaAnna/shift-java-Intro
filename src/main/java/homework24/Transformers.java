@@ -1,5 +1,5 @@
 package main.java.homework24;
 
-public class Transformer {
+public class Transformers {
 
 }
