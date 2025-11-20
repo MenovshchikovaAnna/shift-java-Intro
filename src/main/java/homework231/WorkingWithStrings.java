@@ -6,15 +6,14 @@ public class WorkingWithStrings {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String stringInputOriginal = inputStringFromConsole(scanner); //Ввод строки с консоли
-        String stringOriginalNormalized = getStringWithoutDoubleSpaces(stringInputOriginal); //Замена двойных пробелов
+        String stringInput = (getStringWithoutDoubleSpaces(inputStringFromConsole(scanner))); //Ввод строки с консоли и ее нормализация
 
         char characterInput = inputCharacterFromConsole(scanner); //Ввод символа с консоли
 
-        String stringAfterChanged = getStringWithSpaceCharacterReplacement(stringOriginalNormalized, characterInput); //Замена символов пробелами
-        String stringFinal = getStringWithoutDoubleSpaces(stringAfterChanged); //Замена двойных пробелов
+        String stringOutput = getStringWithSpaceCharacterReplacement(stringInput, characterInput); //Замена символов пробелами
+        stringOutput = getStringWithoutDoubleSpaces(stringOutput); //Замена двойных пробелов
 
-        outputString(stringOriginalNormalized, stringFinal); //Вывод строки
+        outputString(stringInput, stringOutput); //Вывод строки
     }
 
     //Ввод строки с консоли
@@ -36,8 +35,8 @@ public class WorkingWithStrings {
     }
 
     //Замена двойных пробелов
-    public static String getStringWithoutDoubleSpaces(String stringInputOriginal) {
-        String stringReplacingSpaces = stringInputOriginal;
+    public static String getStringWithoutDoubleSpaces(String stringInput) {
+        String stringReplacingSpaces = stringInput;
 
         while (stringReplacingSpaces.contains("  ")) {
             stringReplacingSpaces = stringReplacingSpaces.replace("  ", " ");
@@ -71,14 +70,14 @@ public class WorkingWithStrings {
     }
 
     //Вывод строки
-    public static void outputString(String stringOriginalNormalized, String stringFinal) {
+    public static void outputString(String stringInput, String stringOutput) {
         StringBuilder stringBuilder = new StringBuilder();
         System.out.println();
 
-        if (stringOriginalNormalized.equals(stringFinal)) {
+        if (stringInput.equals(stringOutput)) {
             System.out.println("После преобразований строка не изменилась");
         } else {
-            stringBuilder.append("Оригинальная строка: ").append(stringOriginalNormalized).append("; изменённая строка: ").append(stringFinal);
+            stringBuilder.append("Оригинальная строка: ").append(stringInput).append("; изменённая строка: ").append(stringOutput);
             System.out.println(stringBuilder);
         }
     }

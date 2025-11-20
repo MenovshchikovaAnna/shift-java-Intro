@@ -1,6 +1,6 @@
 package main.java.homework232;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -88,8 +88,10 @@ public class PrintMultiplicationTable {
 
     //Функция для записи таблицы в файл
     public static void tableRecordToFile(int first, int second, int step) {
+        PrintWriter printWriter = null;
+
         try {
-            PrintWriter printWriter = new PrintWriter("MultiplicationTable.txt");
+            printWriter = new PrintWriter("MultiplicationTable.txt");
 
             int numberMax = Math.max(Math.abs(first), Math.abs(second)); //поиск максимального числа по модулю
             int maxNumberSquare = -1 * numberMax * numberMax; //подсчет самого большого возможного результата умножения (с возможным минусом)
@@ -100,11 +102,13 @@ public class PrintMultiplicationTable {
 
             firstRowRecordToFile(cellLength, arrayMultipliers, printWriter); //Запись шапки таблицы в файл
             otherRowRecordToFile(cellLength, arrayMultipliers, printWriter); //Запись строк таблицы в файл
-
-            printWriter.close();
-            System.out.println("Таблица умножения успешно записана в файл MultiplicationTable.txt");
-        } catch (IOException messageErrorCreateFile) {
-            System.out.print("\nОшибка при записи в файл: " + messageErrorCreateFile.getMessage() + "\n\n");
+        } catch (FileNotFoundException messageErrorCreateFile) {
+            System.out.print("\nОшибка при создании файла: " + messageErrorCreateFile.getMessage() + "\n\n");
+        } finally {
+            if (printWriter != null) {
+                printWriter.close();
+                System.out.println("Таблица умножения успешно записана в файл MultiplicationTable.txt");
+            }
         }
     }
 }
