@@ -4,13 +4,19 @@ public class TransformersAbstract {
     public static void main(String[] args) {
         Autobot bumblebee = new Autobot("Bumblebee", "Autobots");
         Decepticon megatron = new Decepticon("Megatron", "Decepticons");
-        System.out.println("\n== Summoning the Autobot Bumblebee ==\n");
-        actionsPerformedByTransformer(bumblebee); //Выполнение действий автоботом Bumblebee
-        System.out.println();
-        System.out.println("\n== Summoning the Decepticon Megatron ==\n");
-        actionsPerformedByTransformer(megatron); //Выполнение действий десептиконом Megatron
+
+        summoningTransformer(bumblebee); //Выполнение действий для трансформера bumblebee
+        summoningTransformer(megatron); //Выполнение действий для трансформера megatron
     }
 
+    //Вызов действий для трансформеров
+    public static void summoningTransformer(Transformer transformer) {
+        System.out.println("\n== Summoning the " + transformer.name + " ==\n");
+        actionsPerformedByTransformer(transformer);
+        System.out.println();
+    }
+
+    //Выполнение действий для трансформеров
     public static void actionsPerformedByTransformer(Transformer transformer) {
         transformer.run();
         transformer.fire();
