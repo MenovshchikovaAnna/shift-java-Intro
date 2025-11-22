@@ -1,6 +1,6 @@
 package main.java.homework25;
 
-public class Decepticon extends Transformer {
+public class Decepticon extends Transformer implements Action {
     private String teamName;
     private final String eyeColor = "red";
     private boolean kindness = false;
@@ -42,5 +42,15 @@ public class Decepticon extends Transformer {
 
     public void setKindness(boolean kindness) {
         this.kindness = kindness;
+    }
+
+    @Override
+    public void fire() {
+        System.out.println("-> " + name + " is firing");
+    }
+
+    @Override
+    public void charge() {
+        System.out.println("-> " + name + " is charging");
     }
 }

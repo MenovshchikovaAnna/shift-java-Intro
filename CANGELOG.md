@@ -18,3 +18,11 @@
 <20.11.2025>
 Внесены корректировки в файл WorkingWithStrings.java
 Внесены корректировки в файл PrintMultiplicationTable.java
+Внесены корректировки в файл Transformers.java
+
+<22.11.2025>
+Внесены корректировки в файл TransformerAbstract.java
+Внесены корректировки в файл Action.java
+Внесены корректировки в файл Autobot.java
+Внесены корректировки в файл Decepticon.java
+Внесены корректировки в файл Transformer.java
