@@ -1,19 +1,19 @@
-package main.java.homework25;
+package main.java.homework24;
 
-public class Decepticon extends Transformer implements Action {
+public class Decepticon extends Transformer {
     private String teamName;
-    private final String eyeColor = "red";
+    private static final String eyeColor = "red";
     private boolean kindness = false;
     private String formTransform;
 
     public void transform() {
-        System.out.println("-> " + getName() + " transforms into " + formTransform);
+        System.out.println("-> " + name + " transforms into " + formTransform);
     }
 
     @Override
     public void showInfo() {
         System.out.println("--> Decepticon Properties <--");
-        System.out.println(" Name: " + getName());
+        System.out.println(" Name: " + name);
         System.out.println(" Team name: " + teamName);
         System.out.println(" Eye color: " + eyeColor);
         System.out.println(" Kindness: " + kindness);
@@ -47,17 +47,11 @@ public class Decepticon extends Transformer implements Action {
         this.kindness = kindness;
     }
 
-    @Override
-    public void fire() {
-        System.out.println("-> " + getName() + " is firing");
-    }
-
-    @Override
-    public void charge() {
-        System.out.println("-> " + getName() + " is charging");
-    }
-
     public String getFormTransform() {
         return formTransform;
+    }
+
+    public void formTransform(){
+        this.formTransform = formTransform;
     }
 }

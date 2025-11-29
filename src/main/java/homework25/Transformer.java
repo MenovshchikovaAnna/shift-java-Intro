@@ -1,7 +1,7 @@
 package main.java.homework25;
 
-public abstract class Transformer {
-    protected String name;
+public abstract class Transformer implements Action {
+    private String name;
 
     public Transformer(String name) {
         this.name = name;
