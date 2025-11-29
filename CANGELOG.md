@@ -16,7 +16,6 @@
 Внесены корректировки в файл PrintMultiplicationTable.java
 
 <20.11.2025>
-
 Внесены правки в файл WorkingWithStrings.java после ревью:
 - количество используемых в main сокращено до stringInput, characterInput и stringOutput
 
