@@ -20,6 +20,7 @@ public class TransformersAbstract {
         printTransformerList(transformers); //Печать списка трансформеров
     }
 
+    //Добавление формы трансформера
     public static String inputFormTransform(String transformerType) {
         Scanner scanner = new Scanner(System.in);
 
