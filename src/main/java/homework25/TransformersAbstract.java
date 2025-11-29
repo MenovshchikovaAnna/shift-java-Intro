@@ -6,25 +6,36 @@ import java.util.Scanner;
 
 public class TransformersAbstract {
     public static void main(String[] args) {
-        System.out.print("Enter transform form Autobot (vehicles): ");
-        Autobot bumblebee = new Autobot("Bumblebee", "Autobots", inputFormTransform());
 
-        System.out.print("Enter transform form Decepticon (land and air transport, weapons, equipment): ");
-        Decepticon megatron = new Decepticon("Megatron", "Decepticons", inputFormTransform());
+        Autobot bumblebee = new Autobot("Bumblebee", "Autobots", inputFormTransform("Autobot"));
+        Decepticon megatron = new Decepticon("Megatron", "Decepticons", inputFormTransform("Decepticon"));
 
         summoningTransformer(bumblebee); //Выполнение действий для трансформера bumblebee
         summoningTransformer(megatron); //Выполнение действий для трансформера megatron
 
         List<Transformer> transformers = new ArrayList<>();
-        addTransformerInList(transformers, bumblebee); //Добавление Bumblebee в список
-        addTransformerInList(transformers, megatron); //Добавление Megatron в список
+        transformers.add(bumblebee); //Добавление Bumblebee в список
+        transformers.add(megatron); //Добавление Megatron в список
 
         printTransformerList(transformers); //Печать списка трансформеров
     }
 
-    public static String inputFormTransform() {
+    public static String inputFormTransform(String transformerType) {
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+
+        if (transformerType.equals("Autobot")){
+            System.out.print("\nEnter transform form Autobot (vehicles): ");
+            return scanner.nextLine();
+        }
+        else if (transformerType.equals("Decepticon")){
+            System.out.print("\nEnter transform form Decepticon (land and air transport, weapons, equipment): ");
+            return scanner.nextLine();
+        }
+        else {
+            System.out.print("Unknown transformer type: " + transformerType);
+            System.out.println();
+            return "- Unknown transformer form -";
+        }
     }
 
     //Вызов действий для трансформеров
@@ -41,11 +52,6 @@ public class TransformersAbstract {
         transformer.charge();
         transformer.transform();
         transformer.showInfo();
-    }
-
-    //Создание списка трансформеров
-    public static void addTransformerInList(List<Transformer> transformers, Transformer transformer) {
-        transformers.add(transformer);
     }
 
     //Печать списка трансформеров
