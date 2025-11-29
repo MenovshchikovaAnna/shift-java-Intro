@@ -1,5 +1,5 @@
 <11.11.2025>
-Внесены корректировки в файл README.md 
+Внесены корректировки в файл README.md
 
 <13.11.2025>
 Внесены корректировки в файл LogicalOperationTable.java
@@ -29,12 +29,12 @@
 
 <22.11.2025>
 Внесены корректировки в файл TransformersAbstract.java
-- класс Transformer преобразован в абстрактный класс, 
-- из класса Transformer удалены методы run(), fire(), charge(), 
-- в класс Transformer добавлен абстрактный метод transform(), 
-- создан файл интерфейс Action.java, 
-- в интерфейс Action перенесены методы run(), fire(), charge(), 
-- метод run() установлен как метод по-умолчанию, 
+- класс Transformer преобразован в абстрактный класс,
+- из класса Transformer удалены методы run(), fire(), charge(),
+- в класс Transformer добавлен абстрактный метод transform(),
+- создан файл интерфейс Action.java,
+- в интерфейс Action перенесены методы run(), fire(), charge(),
+- метод run() установлен как метод по-умолчанию,
 - создан список трансформеров
 
 <26.11.2025>
@@ -45,3 +45,14 @@
 - убран abstract перед классом Transformer,
 - выполнение действий для трансформера вынесено в отдельную функцию,
 - в стиль заполнения файла Changelog.md внесены изменения (изменена часть файла)
+
+<29.11.2025>
+Правки файла TransformersAbstract.java после ревью:
+- модификатор доступа "protected" заменен на private;
+- название метода ListTransformerCreate изменено на addTransformerInList();
+- название метода ListTransformerPrint изменено на printTransformerList();
+- метод addTransformerInList теперь имеет возможность добавить любого трансформера в список;
+- к классу Transformer добавлен интерфейс Action;
+- цикл for в методе printTransformerList() заменен на foreach
+- System.out.print("Enter transform form...") перенесено в inputFormTransform(),
+- функция addTransformerInList() удалена
